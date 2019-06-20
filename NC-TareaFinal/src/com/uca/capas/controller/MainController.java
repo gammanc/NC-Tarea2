@@ -14,7 +14,6 @@ public class MainController {
 	
 	@Autowired
 	UserService userService;
-	
 
 	@RequestMapping("/")
 	public ModelAndView loginScreen() {
@@ -28,8 +27,7 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		User user  = userService.findByUserandPass(username, password);
 		if (user != null) {
-			mav.setViewName("stores");
-			mav.addObject("user", user);
+			return new ModelAndView("redirect:/stores","user",user);
 		} else {
 			mav.setViewName("login");
 			mav.addObject("error", "Credenciales incorrectas");
