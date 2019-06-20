@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>${message}</h1>
-	
+	<!-- 
 	<form action="${pageContext.request.contextPath}/search" method="post">
 		<label>Buscar por ID: </label><input type="number" name="idsearch" required>
 		<input type="submit" value="Buscar"/>
@@ -39,6 +39,6 @@
 			</th>
 		</tr>
 		</c:forEach>
-	</table>
+	</table> -->
 </body>
 </html>
