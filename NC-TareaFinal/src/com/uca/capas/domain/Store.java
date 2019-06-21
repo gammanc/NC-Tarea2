@@ -2,6 +2,7 @@ package com.uca.capas.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.sun.istack.NotNull;
+
+
+
 
 @Entity
 @Table(schema = "public", name = "sucursal")
@@ -22,22 +31,30 @@ public class Store {
 	@Column(name = "codigo")
 	private Integer code;
 	
+	@NotBlank(message="Debe proporcionar un nombre")
+	@Size(min=4, max=100, message="La longitud debe ser de entre 4 y 100 caracteres")
 	@Column(name = "nombre")
 	private String name;
 	
+	@Size(min = 4, max = 200)
 	@Column(name = "ubicacion")
 	private String address;
 	
+	@NotNull
+	@Min(10)
 	@Column(name = "cantidad_mesas")
 	private Integer numTables;
-	
+
+	@NotBlank(message = "Debe proporcionar un nombre de gerente")
+	@Size(min = 5, max = 250)
 	@Column(name = "gerente")
 	private String manager;
 	
+	@Size(max=250)
 	@Column(name = "horarios")
 	private String schedule;
 	
-	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	List<Employee> employees;
 
 	public Store() {}

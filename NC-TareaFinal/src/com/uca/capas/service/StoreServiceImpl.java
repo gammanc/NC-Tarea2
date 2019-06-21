@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.uca.capas.domain.Store;
 import com.uca.capas.repositories.StoreRepository;
@@ -26,8 +28,16 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
+	@Transactional
 	public Store saveStore(Store st) throws DataAccessException {
 		return storeRepository.save(st);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void deleteStore(int st) throws DataAccessException {
+		Store store = findOne(st);
+		storeRepository.delete(store);
 	}
 
 }

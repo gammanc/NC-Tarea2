@@ -12,6 +12,10 @@
 		<input type="submit" value="Agregar una nueva sucursal"/>
 	</form>
 	
+	<br>
+	<h1>${message}</h1>
+	<br>
+	
 	<table>
 		<tr>
 			<th>Nombre</th>
