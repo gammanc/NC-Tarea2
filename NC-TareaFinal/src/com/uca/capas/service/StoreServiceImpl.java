@@ -2,6 +2,7 @@ package com.uca.capas.service;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,11 @@ public class StoreServiceImpl implements StoreService {
 	public void deleteStore(int st) throws DataAccessException {
 		Store store = findOne(st);
 		storeRepository.delete(store);
+	}
+
+	@Override
+	public Store fetchStoreWithEmployeesById(Integer id) throws DataAccessException {
+		return storeRepository.fetchStoreWithEmployeesById(id);
 	}
 
 }

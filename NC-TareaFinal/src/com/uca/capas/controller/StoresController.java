@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +44,18 @@ public class StoresController {
 			mav.addObject("noList", "No se encontraron sucursales");
 		mav.setViewName("stores");
 		return mav;
+	}
+	
+	@RequestMapping("/store/{id}")
+	public String storeProfile(@PathVariable("id") Integer code, Model m) {
+		try {
+			Store store = storeService.fetchStoreWithEmployeesById(code);
+			m.addAttribute("store", store);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return "storeProfile";
 	}
 	
 	@RequestMapping("/addStore")

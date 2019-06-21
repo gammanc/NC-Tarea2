@@ -34,7 +34,7 @@ public class Employee {
 	@Column(name = "estado")
 	private boolean status;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "sucursal_id")
 	private Store store;
 
