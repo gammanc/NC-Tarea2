@@ -1,22 +1,38 @@
 package com.uca.capas.dto;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class EmployeeDTO {
 
 	private Integer code;
 	
+	@NotBlank(message = "El nombre es requerido")
+	@Size(min = 2, max = 200, message = "Debe ser de entre 2 y 200 caracteres")
 	private String name;
 	
+	@NotNull(message = "La edad es requerida")
+	@Min(value = 18, message = "La edad mínima es de 18 años")
+    @Max(value = 99, message = "La edad máxima es de 99 años")
 	private Integer age;
 	
-	private char gender;
+	@NotBlank(message = "Campo requerido")
+	@Pattern(regexp = "^[M|F]{1}$", message = "Debe ser M o F")
+	private String gender;
 	
+	@NotNull
 	private boolean status;
 	
+	@NotNull
 	private int storeid;
 
 	public EmployeeDTO() {};
 	
-	public EmployeeDTO(Integer code, String name, Integer age, char gender, boolean status, Integer storeid) {
+	public EmployeeDTO(Integer code, String name, Integer age, String gender, boolean status, Integer storeid) {
 		super();
 		this.code = code;
 		this.name = name;
@@ -29,7 +45,8 @@ public class EmployeeDTO {
 	public Integer getCode() {
 		return code;
 	}
-
+	
+	
 	public void setCode(Integer code) {
 		this.code = code;
 	}
@@ -50,11 +67,11 @@ public class EmployeeDTO {
 		this.age = age;
 	}
 
-	public char getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(char gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 

@@ -53,8 +53,8 @@
 			<th>${employee.gender}</th>
 			<th>${employee.statusDelegate}</th>
 			<th>
-				<button onclick="window.location.href='${pageContext.request.contextPath}/employee/edit/${store.code}'">Editar</button>
-				<button onclick="window.location.href='${pageContext.request.contextPath}/employee/delete/${store.code}'">Eliminar</button>	
+				<button onclick="window.location.href='${pageContext.request.contextPath}/employee/edit/${employee.code}'">Editar</button>
+				<button onclick="window.location.href='${pageContext.request.contextPath}/employee/delete/${employee.code}'">Eliminar</button>	
 			</th>
 		</tr>
 		</c:forEach>
