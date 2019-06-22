@@ -54,7 +54,7 @@ public class Store {
 	@Column(name = "horarios")
 	private String schedule;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "store", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "store", cascade = CascadeType.REMOVE)
 	List<Employee> employees;
 
 	public Store() {}

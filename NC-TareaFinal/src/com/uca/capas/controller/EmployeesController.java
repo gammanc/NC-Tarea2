@@ -1,5 +1,7 @@
 package com.uca.capas.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -17,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.uca.capas.domain.Employee;
 import com.uca.capas.domain.Store;
 import com.uca.capas.dto.EmployeeDTO;
 import com.uca.capas.service.EmployeeService;
@@ -32,12 +33,16 @@ public class EmployeesController {
 	@Autowired
 	EmployeeService employeeService;
 	
+	/*Obtener la lista de sucursales para el formulario, se ejecuta antes de cada @RequestMapping*/
+	@ModelAttribute("stores")
+	public List<Store> storeList(){
+		return storeService.findAll();
+	}
+	
 	@RequestMapping(path = "/addEmployee", method = RequestMethod.POST)
 	public ModelAndView employeeForm(@RequestParam("storecode") Integer id_store, HttpServletRequest req, RedirectAttributes ra) {
 		ModelAndView mav = new ModelAndView();
 		try {
-			mav.addObject("stores",storeService.findAll());
-			mav.addObject("storeid", id_store);
 			mav.addObject("action", "Agregar");
 			EmployeeDTO e = new EmployeeDTO();
 			e.setStoreid(id_store);
@@ -60,7 +65,6 @@ public class EmployeesController {
 	public ModelAndView saveStore(@Valid @ModelAttribute("employeeDTO") EmployeeDTO employeeDTO, BindingResult result, RedirectAttributes ra,HttpServletRequest req){
 		ModelAndView mav = new ModelAndView();
 		if(result.hasErrors()) {
-			mav.addObject("stores",storeService.findAll());
 			mav.addObject("action", "Agregar");
 			mav.addObject("employeeDTO", employeeDTO);
 			mav.setViewName("employeeForm");
@@ -85,7 +89,6 @@ public class EmployeesController {
 	public String editStore(@PathVariable("id") Integer code, Model m){
 		try {
 			EmployeeDTO e = employeeService.findOne(code);
-			m.addAttribute("stores",storeService.findAll());
 			m.addAttribute("action", "Editar");
 			m.addAttribute("employeeDTO", e);
 		}
