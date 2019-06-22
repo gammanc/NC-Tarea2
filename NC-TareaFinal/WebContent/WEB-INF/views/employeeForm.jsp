@@ -33,8 +33,8 @@
                 <tr>
                     <td><label>Sexo: </label></td>
                     <td>
-                    	<form:radiobutton name="gender" path="gender" value="true"/><label>M</label> 
-						<form:radiobutton name="gender" path="gender" value="false"/><label>F</label>                     
+                    	<form:radiobutton name="gender" path="gender" value="M"/><label>M</label> 
+						<form:radiobutton name="gender" path="gender" value="F"/><label>F</label>                     
                     </td>
                 </tr>
                 <tr>

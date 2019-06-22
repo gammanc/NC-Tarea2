@@ -66,11 +66,11 @@ public class EmployeeDTO {
 		this.status = status;
 	}
 
-	public Integer getStoreId() {
+	public Integer getStoreid() {
 		return storeid;
 	}
 
-	public void setStore(Integer store) {
+	public void setStoreid(Integer store) {
 		this.storeid = store;
 	}
 	
