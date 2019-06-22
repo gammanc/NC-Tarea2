@@ -25,12 +25,18 @@ public class MainController {
 	@RequestMapping("/login")
 	public ModelAndView login(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
 		ModelAndView mav = new ModelAndView();
-		User user  = userService.findByUserandPass(username, password);
-		if (user != null) {
-			return new ModelAndView("redirect:/stores","user",user);
-		} else {
-			mav.setViewName("login");
-			mav.addObject("error", "Credenciales incorrectas");
+		try {
+			User user  = userService.findByUserandPass(username, password);
+			if (user != null) {
+				return new ModelAndView("redirect:/stores","user",user);
+			} else {
+				mav.setViewName("login");
+				mav.addObject("error", "Credenciales incorrectas");
+			}
+		}
+		catch(Exception e) {
+			mav.addObject("error","Algo salió mal - No se pudo conectar");
+			e.printStackTrace();
 		}
 		return mav;
 	}

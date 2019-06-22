@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${store.name} - Perfil</title>
 </head>
 <body>
-<h1>${message}</h1>
+	<h2>Perfil de sucursal</h2>
+
 	<table>
 	   <tr>
 	       <td><label>Nombre : </label></td>
@@ -32,7 +33,10 @@
 	    </tr>
 	</table>
 	
-		<table>
+	<button onclick="window.location.href='${pageContext.request.contextPath}/addEmployee/${store.code}'">
+		Agregar empleado a esta sucursal
+	</button>
+	<table>
 		<tr>
 			<th>Nombre</th>
 			<th>Edad</th>
