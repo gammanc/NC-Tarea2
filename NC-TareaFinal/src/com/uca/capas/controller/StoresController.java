@@ -69,17 +69,19 @@ public class StoresController {
 	public ModelAndView saveStore(@Valid @ModelAttribute("store") Store store, BindingResult result, RedirectAttributes ra,HttpServletRequest req){
 		ModelAndView mav = new ModelAndView();
 		if(result.hasErrors()) {
+			mav.addObject("action", store.getCode() == null ? "Agregar":"Editar");
 			mav.setViewName("storeForm");
 		} else {
 			try {
 				storeService.saveStore(store);
 				RedirectView rv = new RedirectView(req.getContextPath()+"/stores");
 				rv.setExposeModelAttributes(false);
-				ra.addFlashAttribute("message", "Sucursal guardada con éxito");
+				ra.addFlashAttribute("message", "La sucursal fue guardada con éxito");	
 				mav.setView(rv);
 			}
 			catch(Exception e) {
-				mav.addObject("message", "No se ha podido guardar la sucursal");
+				mav.addObject("action", store.getCode() == null ? "Agregar":"Editar");
+				mav.addObject("message", "No se ha podido guardar la sucursal, inténtelo más tarde");
 				mav.setViewName("storeForm");
 				e.printStackTrace();
 			}
@@ -106,10 +108,8 @@ public class StoresController {
 		rv.setExposeModelAttributes(false);
 		try {
 			storeService.deleteStore(code);
-			ra.addFlashAttribute("success", true);
 			ra.addFlashAttribute("message", "La sucursal fue removida con éxito");			
 		} catch (Exception e) {
-			ra.addFlashAttribute("success", false);
 			ra.addFlashAttribute("message", "No se pudo remover la sucursal");
 			e.printStackTrace();
 		}

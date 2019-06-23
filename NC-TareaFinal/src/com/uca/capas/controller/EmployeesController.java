@@ -1,5 +1,6 @@
 package com.uca.capas.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +37,13 @@ public class EmployeesController {
 	/*Obtener la lista de sucursales para el formulario, se ejecuta antes de cada @RequestMapping*/
 	@ModelAttribute("stores")
 	public List<Store> storeList(){
-		return storeService.findAll();
+		List<Store> stores = new ArrayList<>();
+		try {
+			stores = storeService.findAll();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return stores;
 	}
 	
 	@RequestMapping(path = "/addEmployee", method = RequestMethod.POST)
@@ -44,6 +51,7 @@ public class EmployeesController {
 		ModelAndView mav = new ModelAndView();
 		try {
 			mav.addObject("action", "Agregar");
+			mav.addObject("id_store",id_store);
 			EmployeeDTO e = new EmployeeDTO();
 			e.setStoreid(id_store);
 			e.setGender("M");
@@ -77,7 +85,7 @@ public class EmployeesController {
 				mav.setView(rv);
 			}
 			catch(Exception e) {
-				mav.addObject("message", "No se ha podido guardar el empleado");
+				mav.addObject("message", "No se ha podido guardar el empleado, intente más tarde");
 				mav.setViewName("employeeForm");
 				e.printStackTrace();
 			}

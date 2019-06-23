@@ -7,47 +7,86 @@
 <head>
 <meta charset="UTF-8">
 <title>Empleado</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/materialize.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-	<h1>${message}</h1>
-	<form:form action="${pageContext.request.contextPath}/saveEmployee" method="POST" modelAttribute="employeeDTO">
-		<form:input type="hidden" name="code" path="code"/>
-             <table>
-				<tr>
-					<td><b>Sucursal:</b></td>
-					<td><form:select path="storeid" class="inputs"> 
-							<form:options items="${stores}" itemValue="code" itemLabel="name" id="idstore" />
-						</form:select>
-					</td>
-				</tr>
-                <tr>
-                    <td><label>Nombre : </label></td>
-                    <td><form:input type="text" name="name" path="name"/></td>
-                    <td><form:errors path="name" cssStyle="color:red;"/></td>
-                </tr>
-                <tr>
-                    <td><label>Edad : </label></td>
-                    <td><form:input type="number" name="age" path="age"/></td>
-                    <td><form:errors path="age" cssStyle="color:red;"/></td>
-                </tr>
-                <tr>
-                    <td><label>Sexo: </label></td>
-                    <td>
-                    	<form:radiobutton name="gender" path="gender" value="M"/><label>M</label> 
-						<form:radiobutton name="gender" path="gender" value="F"/><label>F</label>                     
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Estado : </label></td>
-                    <td>
-                    	<form:radiobutton name="status" path="status" value="true"/><label>Activo</label> 
-						<form:radiobutton name="status" path="status" value="false"/><label>Inactivo</label>                     
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="submit" value="Guardar"/></td>
-                </tr>
-            </table>
-        </form:form>	
+    <div class="container">
+        <div class="row valign-wrapper">
+            <div class="col s6 m8">
+                <h2>${action} empleado</h2>
+            </div>
+            <div class="col s6 m4">
+                <button class="btn-large waves-effect waves-light blue" onclick="window.location.href='${pageContext.request.contextPath}/store/${id_store}'">Regresar</button>
+            </div>
+        </div>
+
+       <c:if test = "${not empty message}">
+        <div class="row valign-wrapper">
+            <div class="col s12">
+                <div class="card-panel light-blue lighten-4">
+                <span>${message}</span>
+                </div>
+            </div>
+        </div>
+        </c:if>
+
+        <div class="section row">
+        	<form:form action="${pageContext.request.contextPath}/saveEmployee" method="POST" modelAttribute="employeeDTO" autocomplete="off">
+        		<form:input type="hidden" name="code" path="code"/>
+
+                <div class="row">
+    			    <div class="input-field col s12">
+    					<form:select path="storeid" class="inputs"> 
+    						<form:options items="${stores}" itemValue="code" itemLabel="name" id="idstore" />
+    					</form:select>
+                        <label>Sucursal</label>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="input-field col s6">
+                        <label for="name">Nombre</label> 
+                        <form:input id="name" type="text" name="name" path="name"/> 
+                        <form:errors path="name" cssStyle="color:red;"/> 
+                    </div>
+                    
+                    <div class="input-field col s6">
+                        <label for="edad">Edad</label> 
+                        <form:input id="edad" type="number" name="age" path="age"/>
+                        <form:errors path="age" cssStyle="color:red;"/> 
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col s6">
+                        <label>Sexo</label>
+                    	<p>
+                            <label><form:radiobutton name="gender" path="gender" value="M"/><span>M</span></label>
+                            <label><form:radiobutton name="gender" path="gender" value="F"/><span>F</span></label>
+                        </p>
+                    </div>
+                 
+                    <div class="col s6">
+                        <label>Estado</label>
+                        <p>
+                            <label><form:radiobutton name="status" path="status" value="true"/><span>Activo</span></label>                           
+                            <label><form:radiobutton name="status" path="status" value="false"/><span>Inactivo</span></label>
+                        <p>                   
+                    </div>
+                </div>  
+                <button type="submit" class="waves-effect waves-light btn blue">Guardar</button>
+            </form:form>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+            $('select').formSelect();
+          });
+    </script>
 </body>
 </html>
